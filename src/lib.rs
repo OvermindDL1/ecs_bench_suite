@@ -8,3 +8,5 @@ pub mod legion_packed;
 pub mod shipyard;
 pub mod shipyard_packed;
 pub mod specs;
+#[cfg(feature = "enrs-bench")] pub mod enrs;
+#[cfg(feature = "enrs-bench")] pub mod enrs_grouped;

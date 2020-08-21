@@ -63,6 +63,62 @@ fn bench_simple_iter(c: &mut Criterion) {
         let mut bench = specs::simple_iter::Benchmark::new();
         b.iter(move || bench.run());
     });
+    #[cfg(feature = "enrs-bench")]
+    group.bench_function("enrs", |b| {
+        let mut bench = enrs::simple_iter::Benchmark::new();
+        b.iter(move || bench.run());
+    });
+    #[cfg(feature = "enrs-bench")]
+    group.bench_function("enrs (grouped)", |b| {
+        let mut bench = enrs_grouped::simple_iter::Benchmark::new();
+        b.iter(move || bench.run());
+    });
+}
+
+fn bench_dyn_iter(c: &mut Criterion) {
+    let mut group = c.benchmark_group("dyn_iter");
+    group.bench_function("legion", |b| {
+        let mut bench = legion::dyn_iter::Benchmark::new();
+        b.iter(move || bench.run());
+    });
+    // group.bench_function("legion (packed)", |b| {
+    //     let mut bench = legion_packed::dyn_iter::Benchmark::new();
+    //     b.iter(move || bench.run());
+    // });
+    // group.bench_function("legion_0.2.4", |b| {
+    //     let mut bench = legion_2_4::dyn_iter::Benchmark::new();
+    //     b.iter(move || bench.run());
+    // });
+    group.bench_function("bevy", |b| {
+        let mut bench = bevy::dyn_iter::Benchmark::new();
+        b.iter(move || bench.run());
+    });
+    // group.bench_function("hecs", |b| {
+    //     let mut bench = hecs::dyn_iter::Benchmark::new();
+    //     b.iter(move || bench.run());
+    // });
+    // group.bench_function("shipyard", |b| {
+    //     let mut bench = shipyard::dyn_iter::Benchmark::new();
+    //     b.iter(move || bench.run());
+    // });
+    // group.bench_function("shipyard (packed)", |b| {
+    //     let mut bench = shipyard_packed::dyn_iter::Benchmark::new();
+    //     b.iter(move || bench.run());
+    // });
+    // group.bench_function("specs", |b| {
+    //     let mut bench = specs::dyn_iter::Benchmark::new();
+    //     b.iter(move || bench.run());
+    // });
+    #[cfg(feature = "enrs-bench")]
+    group.bench_function("enrs", |b| {
+        let mut bench = enrs::dyn_iter::Benchmark::new();
+        b.iter(move || bench.run());
+    });
+    #[cfg(feature = "enrs-bench")]
+    group.bench_function("enrs (grouped)", |b| {
+        let mut bench = enrs_grouped::dyn_iter::Benchmark::new();
+        b.iter(move || bench.run());
+    });
 }
 
 fn bench_frag_iter_bc(c: &mut Criterion) {
@@ -219,6 +275,7 @@ criterion_group!(
     benchmarks,
     bench_simple_insert,
     bench_simple_iter,
+    bench_dyn_iter,
     bench_frag_iter_bc,
     bench_schedule,
     bench_heavy_compute,
